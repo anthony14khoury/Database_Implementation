@@ -56,7 +56,7 @@ def readQueries(queries):
      print("Queries Read")
      return queries
 
-# Sequentia Search
+# Sequential Search
 def sequential_search(db, queries):
 
      for i in range(queries.shape[0]):
@@ -69,12 +69,20 @@ def sequential_search(db, queries):
 
                if (xmin <= x and x <= xmax and ymin <= y and y <= ymax):
                     print( "\t", "(", x, ",", y, ")")
-               
 
 
+def split_array(arr, cond):
+  return [arr[cond], arr[~cond]]
 
 
-#%%
+class Node:
+
+     x: int
+     y: int
+     block_left: np.array([])
+     block_right: np.array([])
+
+
 # Command Line Input
 # command_line_input = str(sys.argv)
 # search_algorithm = int(command_line_input[1])
@@ -86,12 +94,74 @@ database_name = "projDB.gz"
 queries_name = 'projquery.txt'
 
 # Initial Database Object
-db = np.array(readDB(database_name))
+db = readDB(database_name)
 
 # Read Queries
-queries = np.array(readQueries(queries_name))
+queries = readQueries(queries_name)
 
 
+
+
+# %%
+# KD Tree Implementation
+
+def inbox(p, box):
+     return all(box[:,0] <= p) and all(p <= box[:, 1])
+
+class KD_Tree:
+
+     def __init__(self, data, level = 0):
+          # Length of the data
+          length_of_data = len(data)
+          
+          # Middle point (on the right if length is even)
+          middle = length_of_data // 2
+
+          # Sort the data to find the median
+          data.sort(key = lambda x: x[level])
+
+          # Grabbing middle point
+          self.point = data[middle]
+
+          # Setting class attribute
+          self.level = level
+          level = (level + 1) % len(data[0])
+
+          # Initializing left and right nodes
+          self.left = None
+          self.right = None
+
+          # Split data into left and right
+          left_data = data[0 : middle]
+          right_data = data[middle + 1 : length_of_data]
+
+          # Recursively calling KD_Tree on left and right children
+          if middle > 0:
+               self.left = KD_Tree(left_data, level)
+          if length_of_data - (middle + 1) > 0:
+               self.right = KD_Tree(right_data, level)
+     
+     def rangesearch(self, box):
+          p = self.point
+          if inbox(p, box):
+               yield p
+          min, max = box[self.level]
+          split = p[self.level]
+          if self.left is not None and split >= min:
+               yield from self.left.rangesearch(box)
+          if self.right is not None and split <= max:
+               yield from self.right.rangesearch(box)
+
+     
+
+data = [(14, 16), (9, 18), (15, 13), (8, 3), (4, 7)]
+tree = KD_Tree(data)
+query = np.array([[0, 4], [0, 9]])
+print(list(tree.rangesearch(query)))
+
+
+
+#%%
 
 if (search_algorithm == 0):
      print("Sequential Search:")
@@ -109,4 +179,4 @@ elif (search_algorithm == 2):
 
 
 
-# %%
+#%%
