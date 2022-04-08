@@ -95,8 +95,7 @@ queries = readQueries(queries_name)
 
 # Boolean return: checks if node's values are in the range provided
 def in_range(node, range):
-     values_in_range = all(range[:,0] <= node) and all(node <= range[:, 1])
-     return values_in_range
+     return all(range[:,0] <= node) and all(node <= range[:, 1])
 
 class KD_Tree:
 
@@ -156,7 +155,7 @@ class KD_Tree:
 
      
 
-data = [(14, 16), (9, 18), (15, 13), (8, 3), (4, 7), (2, 9), (4, 15), (11, 1), (18, 10), (1, 2)]
+data = [(14, 16), (9, 18), (15, 13), (8, 3), (5, 7), (4, 8), (2, 9), (4, 15), (11, 1), (18, 10), (1, 2)]
 tree = KD_Tree(data)
 query = np.array([[0, 4], [0, 9]])
 print(list(tree.rangesearch(query)))
