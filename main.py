@@ -71,18 +71,6 @@ def sequential_search(db, queries):
                     print( "\t", "(", x, ",", y, ")")
 
 
-def split_array(arr, cond):
-  return [arr[cond], arr[~cond]]
-
-
-class Node:
-
-     x: int
-     y: int
-     block_left: np.array([])
-     block_right: np.array([])
-
-
 # Command Line Input
 # command_line_input = str(sys.argv)
 # search_algorithm = int(command_line_input[1])
@@ -105,8 +93,10 @@ queries = readQueries(queries_name)
 # %%
 # KD Tree Implementation
 
-def inbox(p, box):
-     return all(box[:,0] <= p) and all(p <= box[:, 1])
+# Boolean return: checks if node's values are in the range provided
+def in_range(node, range):
+     values_in_range = all(range[:,0] <= node) and all(node <= range[:, 1])
+     return values_in_range
 
 class KD_Tree:
 
@@ -121,7 +111,7 @@ class KD_Tree:
           data.sort(key = lambda x: x[level])
 
           # Grabbing middle point
-          self.point = data[middle]
+          self.node = data[middle]
 
           # Setting class attribute
           self.level = level
@@ -136,25 +126,37 @@ class KD_Tree:
           right_data = data[middle + 1 : length_of_data]
 
           # Recursively calling KD_Tree on left and right children
-          if middle > 0:
+          if middle > 1:
                self.left = KD_Tree(left_data, level)
           if length_of_data - (middle + 1) > 0:
                self.right = KD_Tree(right_data, level)
      
-     def rangesearch(self, box):
-          p = self.point
-          if inbox(p, box):
-               yield p
-          min, max = box[self.level]
-          split = p[self.level]
+     def rangesearch(self, range):
+          
+          # Initialize Root Node
+          node = self.node
+
+          # Check if point(s) are in the range
+          if in_range(node, range):
+               yield node
+          
+          # Finding the interval we care about (x or y)
+          min, max = range[self.level]
+
+          # Grabbing x or y based on the level
+          split = node[self.level]
+
+          # Checking if left child exists and node is in the range
           if self.left is not None and split >= min:
-               yield from self.left.rangesearch(box)
+               yield from self.left.rangesearch(range)
+          
+          # Checking if right child exists and node is in the range
           if self.right is not None and split <= max:
-               yield from self.right.rangesearch(box)
+               yield from self.right.rangesearch(range)
 
      
 
-data = [(14, 16), (9, 18), (15, 13), (8, 3), (4, 7)]
+data = [(14, 16), (9, 18), (15, 13), (8, 3), (4, 7), (2, 9), (4, 15), (11, 1), (18, 10), (1, 2)]
 tree = KD_Tree(data)
 query = np.array([[0, 4], [0, 9]])
 print(list(tree.rangesearch(query)))
