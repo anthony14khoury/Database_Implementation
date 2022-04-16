@@ -30,7 +30,6 @@ def sequential_search(db, queries):
 
                query_results = query_results[1:]         # Remove First Index (default structure)
                query_results.sort() # Sort List
-               results.append(query_results) # Add record to results list
 
                for report_record in query_results:
                     # Write Record to Output File

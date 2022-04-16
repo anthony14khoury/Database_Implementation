@@ -46,8 +46,8 @@ queries = readQueries(queries_name)
 print("Queries Read")
 
 # KD Tree Created
-# tree = KD_Tree(db, 0, index_size)
-# print("KD Tree Created")
+tree = KD_Tree(data=db, level=0, index_size=index_size)
+print("KD Tree Created")
 
 # MY KD Tree Created
 # my_kd_tree = MY_KD_Tree(db, 0, index_size)
@@ -58,7 +58,7 @@ print("Queries Read")
 #%%
 # Running Code
 
-search_algorithm = 0     # Search Algorithm Choice: 0, 1, 2
+search_algorithm = 1     # Search Algorithm Choice: 0, 1, 2
 
 sequential_results = []  # Sequential Search Results
 kd_results = []          # KD Tree Search Results
@@ -80,20 +80,21 @@ if (search_algorithm == 0):
      print("Total Duration (s): ", end_time - start_time)
 
 
+# KD Tree Search
 elif (search_algorithm == 1):
      print("KD Tree Search")
-     start_time = time.time()
 
-     for i in range(len(queries)):
-          query = queries[i]
-          tree_query = np.array([[query[0], query[1]], [query[2], query[3]]])
-          kd_results.append(list(tree.rangesearch(tree_query)))
+     # Start Stopwatch
+     start_time = time.time()
      
+     kd_results.append(list(tree.query_search(queries=queries)))
+
+     # Stop Stopwatch
      end_time = time.time()
+
      print("Total Duration (s): ", end_time - start_time)
 
-     for j in range(len(kd_results)):
-          kd_results[j].sort()
+
 
 
 elif (search_algorithm == 2):
