@@ -102,7 +102,7 @@ elif (search_algorithm == 2):
 
 #%%
 # Compare Results
-compare_results(sequential_results, kd_results)
+# compare_results(sequential_results, kd_results)
 
 
 #%%

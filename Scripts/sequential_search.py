@@ -13,8 +13,8 @@ def sequential_search(db, queries):
                xmin, xmax, ymin, ymax = queries[i][0], queries[i][1], queries[i][2], queries[i][3]
 
                # Write the Query to the Output File
-               query_output = 'Query: (', xmin, ',', xmax, ',', ymin, ',', ymax, ')'
-               file.write(str(query_output))
+               query_output = 'Query: (' + str(xmin) + ',' + str(xmax) + ',' + str(ymin) + ',' + str(ymax) + ')' + '\n'
+               file.write(query_output)
                
                query_results = [[(0, 0)]]
                for record in db:
@@ -28,16 +28,11 @@ def sequential_search(db, queries):
                          query_results.append(record)
 
 
-               query_results.sort()          # Sort List
-               results = results[1:]         # Remove First Index (default structure)
+               query_results = query_results[1:]         # Remove First Index (default structure)
+               query_results.sort() # Sort List
                results.append(query_results) # Add record to results list
 
                for report_record in query_results:
                     # Write Record to Output File
-                    file.write(str(report_record))
-
-
-          # Remove First Index (default structure)
-          # results = results[1:]
-
-     return results
+                    temp_report = '\t' + str(report_record) + '\n'
+                    file.write(temp_report)
