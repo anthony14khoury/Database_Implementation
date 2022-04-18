@@ -6,7 +6,7 @@ def in_query(node, query):
 
 
 
-class KD_Tree:
+class My_KD_Tree:
 
      def __init__(self, data, index_size, level):
          
@@ -36,12 +36,12 @@ class KD_Tree:
 
           # Recursively calling KD_Tree on left and right children
           if len(left_data) > index_size:
-               self.left = KD_Tree(data=left_data, index_size=index_size, level=level)
+               self.left = My_KD_Tree(data=left_data, index_size=index_size, level=level)
           else:
                self.left = left_data
 
           if len(right_data) > index_size:
-               self.right = KD_Tree(data=right_data, index_size=index_size, level=level)
+               self.right = My_KD_Tree(data=right_data, index_size=index_size, level=level)
           else:
                self.right = right_data
      
@@ -50,7 +50,7 @@ class KD_Tree:
 
      def query_search(self, queries):
           # Open Sequential Search Output File
-          with open('../Output/KD_Tree_Output.txt', 'w') as file:
+          with open('./Output/My_KD_Tree_Output.txt', 'w') as file:
 
                # Loop through all the queries
                # for i in range(len(queries)):

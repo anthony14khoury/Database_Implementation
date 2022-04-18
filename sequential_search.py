@@ -3,7 +3,7 @@ import numpy as np
 def sequential_search(db, queries):
 
      # Open Sequential Search Output File
-     with open('../Output/Sequential_Search_Output.txt', 'w') as file:
+     with open('./Output/Sequential_Search_Output.txt', 'w') as file:
 
           # Initial Array with Proper Output Structure
           dimension = int(len(queries[0]) / 2)
