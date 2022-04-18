@@ -12,19 +12,28 @@ class My_KD_Tree:
          
           # Length of the data
           length_of_data = len(data)
-          
-          # Middle point (on the right if length is even)
-          middle = length_of_data // 2
+
+          # Calcualting Max Variance
+          variance = []
+          temp_data = np.array(data)
+          variance.append(np.var(temp_data, 0))
+          max_variance = np.argmax(variance)
+
+          # Setting the level to the max variance
+          level = max_variance
 
           # Sort the data to find the median
           data.sort(key = lambda x: x[level])
+          
+          # Middle point (on the right if length is even)
+          middle = length_of_data // 2
 
           # Grabbing middle point
           self.node = data[middle]
 
           # Setting class attribute
           self.level = level
-          level = (level + 1) % len(data[0])
+          # level = (level + 1) % len(data[0])
 
           # Initializing left and right nodes
           self.left = None
@@ -53,7 +62,6 @@ class My_KD_Tree:
           with open('./Output/My_KD_Tree_Output.txt', 'w') as file:
 
                # Loop through all the queries
-               # for i in range(len(queries)):
                for query in queries:
                     kd_results = []
 

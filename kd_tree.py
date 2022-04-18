@@ -53,7 +53,6 @@ class KD_Tree:
           with open('./Output/KD_Tree_Output.txt', 'w') as file:
 
                # Loop through all the queries
-               # for i in range(len(queries)):
                for query in queries:
                     kd_results = []
 
