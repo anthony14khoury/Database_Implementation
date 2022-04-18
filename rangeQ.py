@@ -76,7 +76,7 @@ elif (search_algorithm == 2):
      my_kd_tree = My_KD_Tree(data=db, index_size=index_size, level=0)
 
 
-     print('\t' + "MYkd-tree search")
+     print('\t' + "MY KD Tree search")
      start_time = time.time()
      my_kd_tree.query_search(queries=queries)
      end_time = time.time()
