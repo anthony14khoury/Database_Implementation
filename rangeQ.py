@@ -55,7 +55,7 @@ if (search_algorithm == 0):
      sequential_search(db, queries)
      end_time = time.time()
      print('\t' + "Total Duration (s): ", round(end_time - start_time, 4), " seconds")
-     print('\t' + "Output file located: ./Output/Sequential_Search_Output.txt")
+     print('\t' + "Output file located: ./Output/Sequential_Search_Output.txt" + '\n')
 
 
 elif (search_algorithm == 1):
@@ -68,12 +68,12 @@ elif (search_algorithm == 1):
      kd_tree.query_search(queries=queries)
      end_time = time.time()
      print('\t' + "Total Duration (s): ", round(end_time - start_time, 4), " seconds")
-     print('\t' + "Output file located: ./Output/KD_Tree_Output.txt")
+     print('\t' + "Output file located: ./Output/KD_Tree_Output.txt" + '\n')
 
 
 elif (search_algorithm == 2):
      print('\t' + "Creating My KD Tree")
-     my_kd_tree = My_KD_Tree(data=db, index_size=index_size)
+     my_kd_tree = My_KD_Tree(data=db, index_size=index_size, level=0)
 
 
      print('\t' + "MYkd-tree search")
@@ -81,4 +81,4 @@ elif (search_algorithm == 2):
      my_kd_tree.query_search(queries=queries)
      end_time = time.time()
      print('\t' + "Total Duration (s): ", round(end_time - start_time, 4), " seconds")
-     print('\t' + "Output file located: ./Output/My_KD_Tree_Output.txt")
+     print('\t' + "Output file located: ./Output/My_KD_Tree_Output.txt" + '\n')
