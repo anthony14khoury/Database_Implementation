@@ -17,18 +17,18 @@ from sequential_search import sequential_search
 from support import readDB, readQueries
 
 
-database_name = "../projDB.txt"
-queries_name = '../test2.txt'
+database_name = "../Data/projDB.txt"
+queries_name = '../Queries/test2.txt'
 index_size = 50
 
 
 # Database 
 db = readDB(database_name)
-print("Database Read: Records: " + len(db))
+print("Database Read: Records: " + str(len(db)))
 
 # Queries
 queries = readQueries(queries_name)
-print("Queries Read: Queries: " + len(queries))
+print("Queries Read: Queries: " + str(len(queries)))
 
 
 # KD Tree Created
@@ -41,12 +41,12 @@ print("KD Tree Created")
 # print("MY KD Tree Created")
 
 
-
+print()
 #%%
 ''' ------- Running Code -------'''
 
 # Search Algorithm Choice: 0, 1, 2
-search_algorithm   = 0
+search_algorithm   = 1
 sequential_results = []
 kd_results         = []
 my_kd_results      = []
